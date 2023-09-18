@@ -13,3 +13,4 @@ test_2:
 
 run: 
 	g++ -g $(FILES) test.cpp -lm
+	./a.out
