@@ -24,7 +24,7 @@ int statisticGetSet(const std::vector<double> *values, int size,
   double r_lower_bound = 0, r_upper_bound = 0;
 
   for (int j = 0; j < size; j++) {
-    r = uniformDistributionGetNumber();
+    r = uniformDistributionGetNumber(1);
     x_begin = 0;
     r_lower_bound = 0, r_upper_bound = 0;
     for (int i = 0; i < frequences.size() - 1; i++) {
@@ -36,7 +36,7 @@ int statisticGetSet(const std::vector<double> *values, int size,
       }
     }
 
-    res = uniformDistributionGetNumber();
+    res = uniformDistributionGetNumber(1);
     res = x_begin + res * interval_len;
     (*dest).push_back(res);
   }
@@ -57,7 +57,7 @@ double statisticGetNum(const std::vector<double> *values) {
   statisticDensityBuild(values, &frequences);
   frequences.insert(frequences.begin(), 0.0);
   // ���������� ����������, �� �������� ������� �����
-  double r = uniformDistributionGetNumber();
+  double r = uniformDistributionGetNumber(1);
   double x_begin = 0, x_end = 0;
   double r_lower_bound = 0, r_upper_bound = 0;
 
@@ -70,7 +70,7 @@ double statisticGetNum(const std::vector<double> *values) {
     }
   }
 
-  double res = uniformDistributionGetNumber();
+  double res = uniformDistributionGetNumber(1);
   res = x_begin + res * interval_len;
   return res;
 }
@@ -163,9 +163,9 @@ double statisticVariation(const std::vector<double> *values) {
   double res = 0, M = statisticMathExpectation(values);
   double size = (*values).size();
   for (auto i : (*values)) {
-    res += pow(i - M, 2) / size;
+    res += pow(i - M, 2);
   }
-  return res;
+  return res / size;
 }
 
 double statisticSkewness(const std::vector<double> *values) {
@@ -176,10 +176,10 @@ double statisticSkewness(const std::vector<double> *values) {
   double res = 0, M = statisticMathExpectation(values),
          D = statisticVariation(values), size = (*values).size();
   for (auto i : (*values)) {
-    res += pow(i - M, 3) / size;
+    res += pow(i - M, 3);
   }
 
-  res /= pow(D, 1.5);
+  res /= pow(D, 1.5) * size;
   return res;
 }
 

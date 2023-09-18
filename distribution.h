@@ -1,17 +1,18 @@
 #pragma once
 
+#include <stdio.h>
+
 #include <algorithm>
 #include <cmath>
 #include <cstdlib>
 #include <vector>
-#include <stdio.h>
 
 #define M_PI 3.14159265358979323846
 #define EPSILON 1e-16
 /*
         utility.cpp
 */
-double uniformDistributionGetNumber();
+double uniformDistributionGetNumber(int include_borders);
 double standardDistributionFunction(double x);
 double standardDistributionDensity(double x);
 

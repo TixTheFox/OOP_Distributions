@@ -1,7 +1,11 @@
 #include "distribution.h"
 
-double uniformDistributionGetNumber() {
+double uniformDistributionGetNumber(int include_borders) {
   double res = (double)std::rand() / RAND_MAX;
+  // didn't use fabs() here because  0 <= res <= 1
+  if ((res <= EPSILON || (1 - res) <= EPSILON) || !include_borders) {
+    res = (double)std::rand() / RAND_MAX;
+  }
   return res;
 }
 

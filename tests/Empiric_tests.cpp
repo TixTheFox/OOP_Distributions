@@ -17,19 +17,14 @@ void emp_1() {
 
   double y_1, y_2, mu_1, mu_2, lambda_1, lambda_2;
 
-  y_1 = 0.5;
-  y_2 = 1;
+  y_1 = 2;
   mu_1 = 0;
-  mu_2 = 2;
-  lambda_1 = 1;
-  lambda_2 = 1;
+  lambda_1 = 4.6;
 
   printf("Сравнение статистических характеристик выборки с теоретическими\n");
   printf(GREEN_BG "РАСПРЕДЕЛЕНИЕ ХЬЮБЕРА" RESET "\n");
   for (int i = 2; i < 7; i++) {
     HuberDistributionGetSet(pow(10, i), &values, y_1, mu_1, lambda_1);
-
-    //--
 
     printf("-----------------\n");
     printf("Размер выборки: %.0f\n", pow(10, i));
@@ -54,6 +49,9 @@ void emp_1() {
   printf("\n" GREEN_BG "СМЕСЬ РАСПРЕДЕЛЕНИЙ ХЬБЮЕРА" RESET "\n");
 
   double p = 0.6;
+  y_2 = 1;
+  mu_2 = 2;
+  lambda_2 = 2;
 
   for (int i = 2; i < 7; i++) {
     HuberMixtureGetSet(pow(10, i), &values, p, y_1, y_2, mu_1, mu_2, lambda_1,
@@ -109,9 +107,9 @@ void emp_1() {
 void emp_2() {
   double y_1, mu_1, lambda_1;
 
-  y_1 = 1;
-  mu_1 = 0;
-  lambda_1 = 2;
+  y_1 = 2;
+  mu_1 = 20;
+  lambda_1 = 9.7;
 
   std::vector<double> values, other_values;
 

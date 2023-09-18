@@ -1,9 +1,13 @@
 #include "distribution.h"
 
-/*
-        ��� ������ mixt_param, ��� � ������� ������������ ������������
-   ������������� � �������� 2, ������ 1
-*/
+/* Этот блок комментариев описывает функцию `HuberMixtureGetNum`, которая
+   возвращает число из смеси распределений Хьюбера. Параметры:
+    - `mixt_param`: Параметр смешивания, который определяет, какая компонента
+   смеси будет использоваться.
+    - `form_factor_1` и `form_factor_2`: Факторы формы для двух компонент смеси.
+    - `shift_factor_1` и `shift_factor_2`: Факторы сдвига для двух компонент
+   смеси.*/
+
 double HuberMixtureGetNum(double mixt_param, double form_factor_1,
                           double form_factor_2, double shift_factor_1,
                           double shift_factor_2, double scale_factor_1,
@@ -13,7 +17,7 @@ double HuberMixtureGetNum(double mixt_param, double form_factor_1,
   }
 
   double res = 0;
-  if (uniformDistributionGetNumber() > mixt_param) {
+  if (uniformDistributionGetNumber(0) > mixt_param) {
     res = HuberDistributionGetNumber(form_factor_1, shift_factor_1,
                                      scale_factor_1);
   } else {
@@ -23,6 +27,16 @@ double HuberMixtureGetNum(double mixt_param, double form_factor_1,
 
   return res;
 }
+
+/*
+    Этот блок комментариев описывает функцию `HuberMixtureGetSet`, которая
+   заполняет вектор случайными числами из смеси распределений Хьюбера.
+    Параметры:
+    - `size`: Размер вектора, который нужно заполнить.
+    - `dest`: Указатель на вектор, в который будут добавлены числа из смеси.
+    - Остальные параметры определяют характеристики смеси и проверки на
+   корректность.
+*/
 
 int HuberMixtureGetSet(int size, std::vector<double> *dest, double mixt_param,
                        double form_factor_1, double form_factor_2,
@@ -42,6 +56,16 @@ int HuberMixtureGetSet(int size, std::vector<double> *dest, double mixt_param,
   return 1;
 }
 
+/*
+    Этот блок комментариев описывает функцию `HuberMixtureDensity`, которая
+   вычисляет плотность вероятности смеси распределений Хьюбера. Параметры:
+    - `x`: Значение, для которого нужно вычислить плотность вероятности.
+    - `mixt_param`: Параметр смешивания, определяющий, какая компонента смеси
+   используется.
+    - Остальные параметры определяют характеристики смеси и проверки на
+   корректность.
+*/
+
 double HuberMixtureDencity(double x, double mixt_param, double form_factor_1,
                            double form_factor_2, double shift_factor_1,
                            double shift_factor_2, double scale_factor_1,
@@ -57,10 +81,21 @@ double HuberMixtureDencity(double x, double mixt_param, double form_factor_1,
                                                scale_factor_2);
 }
 
+/*
+    Этот блок комментариев описывает функцию `HuberMixtureMathExpectation`,
+   которая вычисляет математическое ожидание смеси распределений Хьюбера.
+    Параметры:
+    - `mixt_param`: Параметр смешивания, который определяет, какая компонента
+   смеси используется.
+    - Остальные параметры определяют характеристики смеси и проверки на
+   корректность.
+*/
+
 double HuberMixtureMathExpectation(double mixt_param, double form_factor_1,
                                    double form_factor_2, double shift_factor_1,
                                    double shift_factor_2, double scale_factor_1,
                                    double scale_factor_2) {
+  // all checks for *_factors are in statistic characteristic functions
   if (mixt_param < 0 || mixt_param > 1) {
     return NAN;
   }
@@ -70,6 +105,15 @@ double HuberMixtureMathExpectation(double mixt_param, double form_factor_1,
          mixt_param * HuberDistributionMathExpectation(
                           form_factor_2, shift_factor_2, scale_factor_2);
 }
+
+/*
+    Этот блок комментариев описывает функцию `HuberMixtureVariation`, которая
+   вычисляет дисперсию смеси распределений Хьюбера. Параметры:
+    - `mixt_param`: Параметр смешивания, который определяет, какая компонента
+   смеси используется.
+    - Остальные параметры определяют характеристики смеси и проверки на
+   корректность.
+*/
 
 double HuberMixtureVariation(double mixt_param, double form_factor_1,
                              double form_factor_2, double shift_factor_1,
@@ -96,6 +140,15 @@ double HuberMixtureVariation(double mixt_param, double form_factor_1,
   res -= pow(m_mix, 2);
   return res;
 }
+
+/*
+    Этот блок комментариев описывает функцию `HuberMixtureSkewness`, которая
+   вычисляет коэффициент асимметрии смеси распределений Хьюбера. Параметры:
+    - `mixt_param`: Параметр смешивания, который определяет, какая компонента
+   смеси используется.
+    - Остальные параметры определяют характеристики смеси и проверки на
+   корректность.
+*/
 
 double HuberMixtureSkewness(double mixt_param, double form_factor_1,
                             double form_factor_2, double shift_factor_1,
@@ -133,6 +186,15 @@ double HuberMixtureSkewness(double mixt_param, double form_factor_1,
 
   return res;
 }
+
+/*
+    Этот блок комментариев описывает функцию `HuberMixtureKurtosis`, которая
+   вычисляет эксцесс смеси распределений Хьюбера. Параметры:
+    - `mixt_param`: Параметр смешивания, который определяет, какая компонента
+   смеси используется.
+    - Остальные параметры определяют характеристики смеси и проверки на
+   корректность.
+*/
 
 double HuberMixtureKurtosis(double mixt_param, double form_factor_1,
                             double form_factor_2, double shift_factor_1,
