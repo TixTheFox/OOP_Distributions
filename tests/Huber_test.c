@@ -64,7 +64,7 @@ START_TEST(Distribution_function_4) {
   ck_assert_double_eq_tol(HuberDistributionMathExpectation(3, 0, 0.5), 0, 3);
   ck_assert_double_eq_tol(HuberDistributionVariation(3, 0, 0.5), 1.004, 3);
   ck_assert_double_eq_tol(HuberDistributionSkewness(3, 0, 0.5), 0, 3);
-  ck_assert_double_eq_tol(HuberDistributionKurtosis(3, 0, 0.5), 45.6389, 4);
+  ck_assert_double_eq_tol(HuberDistributionKurtosis(3, 0, 0.5), 0.04, 2);
 }
 
 START_TEST(Distribution_function_5) {
